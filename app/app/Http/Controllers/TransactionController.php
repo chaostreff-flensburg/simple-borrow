@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Item;
+use App\Models\Transaction;
+use Illuminate\Http\Request;
+
+class TransactionController extends Controller
+{
+    public function create(Request $request)
+    {
+        $request->validate([
+            'item_id' => 'required|integer',
+            'transaction_type' => 'required|integer',
+            'return_date' => 'date',
+            'note' => 'string|nullable',
+        ]);
+
+        Transaction::create(
+            [
+                'item_id' => (int) $request->item_id,
+                'transaction_type' => $request->transaction_type,
+                'return_date' => $request->return_date,
+                'note' => $request->note,
+            ]
+        );
+
+        $item = Item::find($request->item_id);
+        $item->borrow_state = $request->transaction_type;
+        $item->save();
+
+        return redirect()->route('item.show', $request->item_id);
+    }
+}
