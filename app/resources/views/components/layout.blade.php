@@ -4,11 +4,11 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Ausleihsystem</title>
-        <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@1.*/css/pico.min.css">
+        @vite('resources/css/app.css')
     </head>
     @include('partials.header')
     <body>
-        <main class="container">
+        <main class="container my-8 mx-auto">
             {{ $slot }}
         </main>
     </body>

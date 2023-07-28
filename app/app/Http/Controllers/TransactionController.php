@@ -15,6 +15,8 @@ class TransactionController extends Controller
             'transaction_type' => 'required|integer',
             'return_date' => 'date',
             'note' => 'string|nullable',
+            'email' => 'email|nullable',
+            'name' => 'string|nullable',
         ]);
 
         Transaction::create(
@@ -23,6 +25,8 @@ class TransactionController extends Controller
                 'transaction_type' => $request->transaction_type,
                 'return_date' => $request->return_date,
                 'note' => $request->note,
+                'email' => $request->email,
+                'name' => $request->name,
             ]
         );
 

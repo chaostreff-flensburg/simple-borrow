@@ -12,6 +12,7 @@ use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\FileUpload;
 
 class ItemResource extends Resource
 {
@@ -27,8 +28,12 @@ class ItemResource extends Resource
                     ->required(),
                 Forms\Components\TextInput::make('description')
                     ->required(),
-                Forms\Components\TextInput::make('borrow_state')
-                    ->required(),
+                FileUpload::make('image')
+                    ->image()
+                    ->maxFiles(1)
+                    ->directory('images')
+                    ->imageResizeTargetWidth('500')
+                    ->imageResizeTargetHeight('500')
             ]);
     }
 
