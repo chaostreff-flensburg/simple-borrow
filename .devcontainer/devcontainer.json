@@ -27,7 +27,8 @@
 				"bmewburn.vscode-intelephense-client",
 				"onecentlin.laravel-blade",
 				"MehediDracula.php-namespace-resolver",
-				"bradlc.vscode-tailwindcss"
+				"bradlc.vscode-tailwindcss",
+				"GitHub.copilot-chat"
 			]
 		}
 	}
