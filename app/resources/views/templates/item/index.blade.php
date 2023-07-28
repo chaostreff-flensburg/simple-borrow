@@ -15,5 +15,4 @@
             </hgroup>
         </article>
     @endforeach
-    <a href="{{ route('item.create') }}" role="button">Create</a>
 </x-layout>

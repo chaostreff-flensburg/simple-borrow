@@ -27,15 +27,4 @@
             @endforeach
         </ul>
     </details>
-    <details>
-        <summary>Danger</summary>
-        <section>
-            <a href="/items/{{ $item->id }}/edit" role="button">Bearbeiten</a>
-        </section>
-        <form method="POST" action="/items/{{ $item->id }}">
-            @csrf
-            @method('DELETE')
-            <button type="submit" role="button">Löschen</button>
-        </form>
-    </details>
 </x-layout>
