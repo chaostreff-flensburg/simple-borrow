@@ -13,13 +13,21 @@ RUN apk add --no-cache \
     npm~=9 \
     unzip \
     zip \
-    libpng-dev \
     icu-dev \
     icu-libs \
+    jpegoptim \
+    optipng \
+    pngquant \
+    gifsicle \
+    libpng-dev \
+    libjpeg-turbo-dev \
     tzdata
 
 # Install PHP extensions
-RUN docker-php-ext-install pdo_mysql
+RUN docker-php-ext-configure gd --enable-gd --with-jpeg
+RUN docker-php-ext-install pdo_mysql bcmath intl exif gd
+
+COPY docker/php.ini /usr/local/etc/php/php.ini
 
 ENV TZ=Europe/Berlin
 
