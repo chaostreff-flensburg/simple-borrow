@@ -14,7 +14,8 @@ class Item extends Model
         'name',
         'description',
         'borrow_state',
-        'image'
+        'image',
+        'included',
     ];
 
     public function transactions(): HasMany

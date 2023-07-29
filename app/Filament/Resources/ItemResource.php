@@ -33,8 +33,9 @@ class ItemResource extends Resource
                     ->image()
                     ->maxFiles(1)
                     ->directory('images')
-                    ->imageResizeTargetWidth('500')
-                    ->imageResizeTargetHeight('500')
+                    ->acceptedFileTypes(['image/*'])
+                    ->imageResizeMode('cover')
+                    ->imageResizeTargetWidth('820')
             ]);
     }
 
