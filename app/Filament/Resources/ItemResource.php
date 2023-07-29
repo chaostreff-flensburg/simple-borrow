@@ -13,6 +13,7 @@ use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Textarea;
 
 class ItemResource extends Resource
 {
@@ -26,8 +27,8 @@ class ItemResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->required(),
-                Forms\Components\TextInput::make('description')
-                    ->required(),
+                Textarea::make('description'),
+                Textarea::make('included'),
                 FileUpload::make('image')
                     ->image()
                     ->maxFiles(1)

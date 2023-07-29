@@ -15,7 +15,12 @@
         @if ( $item->image )
             <img class="mx-auto object-cover rounded-l" width="500" height="500" src="{{ asset('storage/' . $item->image) }}">
         @endif
-        <p class="mb-8">{{ $item->description }}</p>
+        @if ($item->description)
+            <p class="mb-8">{{ $item->description }}</p>
+        @endif
+        @if ($item->included)
+            <p class="mb-8">{{ $item->included }}</p>
+        @endif
         <a class="btn btn-success" href="{{ route('item.transaction', $item->id) }}" role="button">{{ $item->borrow_state === 0 ? 'Ausleihen' : 'Zurückgeben' }}</a>
         <div class="collapse collapse-arrow bg-base-200 mt-8">
             <input type="radio" name="my-accordion-2" />
