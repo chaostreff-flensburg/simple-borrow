@@ -2,13 +2,15 @@
 
 namespace App\Mail;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
-use Illuminate\Queue\SerializesModels;
+use DateTime;
 use App\Models\Item;
+use Illuminate\Bus\Queueable;
+use Illuminate\Mail\Mailable;
+use Spatie\CalendarLinks\Link;
+use Illuminate\Mail\Mailables\Content;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class ItemBorrowed extends Mailable
 {
@@ -27,7 +29,7 @@ class ItemBorrowed extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Item Borrowed',
+            subject: $this->item->name . 'ausgeliehen',
         );
     }
 
@@ -38,6 +40,9 @@ class ItemBorrowed extends Mailable
     {
         return new Content(
             view: 'emails.item-borrowed',
+            with: [
+                'calendarLink' => $this->getCalendarLink(),
+            ],
         );
     }
 
@@ -49,5 +54,17 @@ class ItemBorrowed extends Mailable
     public function attachments(): array
     {
         return [];
+    }
+
+    private function getCalendarLink()
+    {
+        $from = DateTime::createFromFormat('Y-m-d', $this->item->transactions->last()->return_date->format('Y-m-d'));
+        $to = DateTime::createFromFormat('Y-m-d', $this->item->transactions->last()->return_date->format('Y-m-d'));
+
+        return Link::create(
+            'Return ' . $this->item->name,
+            $from,
+            $to,
+        )->ics();
     }
 }
