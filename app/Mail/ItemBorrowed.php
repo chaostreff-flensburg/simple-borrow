@@ -29,7 +29,7 @@ class ItemBorrowed extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: $this->item->name.'ausgeliehen',
+            subject: $this->item->name.' ausgeliehen',
         );
     }
 
