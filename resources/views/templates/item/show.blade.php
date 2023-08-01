@@ -39,7 +39,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        @foreach ($item->transactions->sortByDesc('created_at') as $transaction)
+                        @foreach ($item->transactions->sortByDesc('created_at')->take(20) as $transaction)
                             <tr>
                                 <td>{{ $transaction->transaction_type === 0 ? 'Zurückgegeben' : 'Ausgeliehen' }}</td>
                                 <td>{{ $transaction->created_at->format('d.m.Y') }}</td>
@@ -52,5 +52,6 @@
                   </div>
             </div>
         </div>
+        <a class="block mt-8 text-xs" href="{{ route('item.print', $item->id) }}">Label drucken</a>
     </article>
 </x-layout>

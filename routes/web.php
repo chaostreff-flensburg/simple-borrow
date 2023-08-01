@@ -24,6 +24,7 @@ Route::group(['middleware' => 'auth.basic'], function () {
             Route::get('/', [ItemController::class, 'index'])->name('item.index');
             Route::post('/', [ItemController::class, 'store'])->name('item.store');
             Route::get('/{item}', [ItemController::class, 'show'])->name('item.show');
+            Route::get('/{item}/print', [ItemController::class, 'print'])->name('item.print');
             Route::get('/{item}/transaction', [ItemController::class, 'transaction'])->name('item.transaction');
         });
 

@@ -17,6 +17,11 @@ class ItemController extends Controller
         return view('templates.item.show', compact('item'));
     }
 
+    public function print(Item $item): View
+    {
+        return view('templates.item.print', compact('item'));
+    }
+
     public function transaction(Item $item): View
     {
         return view('templates.item.transaction', compact('item'));
