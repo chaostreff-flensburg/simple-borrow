@@ -65,6 +65,6 @@ class ItemBorrowed extends Mailable
             'Return '.$this->item->name,
             $from,
             $to,
-        )->ics();
+        );
     }
 }
