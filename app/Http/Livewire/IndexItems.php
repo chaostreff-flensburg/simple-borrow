@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
 use App\Models\Item;
+use Livewire\Component;
 
 class IndexItems extends Component
 {
@@ -20,7 +20,7 @@ class IndexItems extends Component
     {
 
         if ($this->term) {
-            $this->items = Item::where('name', 'like', '%' . $this->term . '%')->get();
+            $this->items = Item::where('name', 'like', '%'.$this->term.'%')->get();
         } else {
             $this->items = Item::all();
         }

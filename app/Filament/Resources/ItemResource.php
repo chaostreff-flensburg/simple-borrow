@@ -3,17 +3,14 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ItemResource\Pages;
-use App\Filament\Resources\ItemResource\RelationManagers;
 use App\Models\Item;
 use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Textarea;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Textarea;
 
 class ItemResource extends Resource
 {
@@ -35,7 +32,7 @@ class ItemResource extends Resource
                     ->directory('images')
                     ->acceptedFileTypes(['image/*'])
                     ->imageResizeMode('cover')
-                    ->imageResizeTargetWidth('820')
+                    ->imageResizeTargetWidth('820'),
             ]);
     }
 

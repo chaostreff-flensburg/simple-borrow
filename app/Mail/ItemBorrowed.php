@@ -2,15 +2,14 @@
 
 namespace App\Mail;
 
-use DateTime;
 use App\Models\Item;
+use DateTime;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
-use Spatie\CalendarLinks\Link;
 use Illuminate\Mail\Mailables\Content;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Envelope;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\SerializesModels;
+use Spatie\CalendarLinks\Link;
 
 class ItemBorrowed extends Mailable
 {
@@ -21,7 +20,8 @@ class ItemBorrowed extends Mailable
      */
     public function __construct(
         public Item $item,
-    ) {}
+    ) {
+    }
 
     /**
      * Get the message envelope.
@@ -29,7 +29,7 @@ class ItemBorrowed extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: $this->item->name . 'ausgeliehen',
+            subject: $this->item->name.'ausgeliehen',
         );
     }
 
@@ -62,7 +62,7 @@ class ItemBorrowed extends Mailable
         $to = DateTime::createFromFormat('Y-m-d', $this->item->transactions->last()->return_date->format('Y-m-d'));
 
         return Link::create(
-            'Return ' . $this->item->name,
+            'Return '.$this->item->name,
             $from,
             $to,
         )->ics();
