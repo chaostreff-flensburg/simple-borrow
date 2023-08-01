@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ItemBorrowed;
 
 class TransactionController extends Controller
 {
@@ -33,6 +35,10 @@ class TransactionController extends Controller
         $item = Item::find($request->item_id);
         $item->borrow_state = $request->transaction_type;
         $item->save();
+
+        if ((int)$request->transaction_type === Transaction::BORROWED) {
+            Mail::to($request->email)->send(new ItemBorrowed($item));
+        }
 
         return redirect()->route('item.show', $request->item_id);
     }
