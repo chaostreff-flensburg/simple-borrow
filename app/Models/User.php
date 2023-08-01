@@ -44,7 +44,7 @@ class User extends Authenticatable implements FilamentUser
         'is_admin' => 'boolean',
     ];
 
-    public function canAccessFilament(): bool
+    public function canAccessPanel(\Filament\Panel $panel): bool
     {
         return $this->is_admin;
     }
