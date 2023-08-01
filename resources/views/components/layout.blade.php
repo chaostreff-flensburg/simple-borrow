@@ -5,12 +5,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Ausleihsystem</title>
         @vite('resources/css/app.css')
+        @livewireStyles
     </head>
     @include('partials.header')
     <body>
         <main class="container my-8 mx-auto">
             {{ $slot }}
         </main>
+        @livewireScripts
     </body>
     @include('partials.footer')
 </html>
