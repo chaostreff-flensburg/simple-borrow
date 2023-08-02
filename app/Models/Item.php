@@ -22,4 +22,9 @@ class Item extends Model
     {
         return $this->hasMany(Transaction::class);
     }
+
+    public function getAutoLoginLink(): string
+    {
+        return str_replace('://', '://' . config('app.autoLoginCredentials') . '@', route('item.show', $this->id));
+    }
 }

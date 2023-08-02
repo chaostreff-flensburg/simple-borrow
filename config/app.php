@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Facade;
 
 return [
 
+    'autoLoginCredentials' => env('AUTO_LOGIN_CREDENTIALS', null),
+
     /*
     |--------------------------------------------------------------------------
     | Application Name
