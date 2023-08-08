@@ -19,6 +19,8 @@ class ItemFactory extends Factory
         return [
             'name' => $this->faker->name,
             'description' => $this->faker->text,
+            'included' => $this->faker->text,
+            'manual_link' => $this->faker->url,
         ];
     }
 }

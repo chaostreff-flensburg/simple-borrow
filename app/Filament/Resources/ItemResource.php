@@ -11,6 +11,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Forms\Components\TextInput;
 
 class ItemResource extends Resource
 {
@@ -22,10 +23,13 @@ class ItemResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
+                TextInput::make('name')
                     ->required(),
                 Textarea::make('description'),
                 Textarea::make('included'),
+                TextInput::make('manual_link')
+                    ->url()
+                    ->suffixIcon('heroicon-m-globe-alt'),
                 FileUpload::make('image')
                     ->image()
                     ->maxFiles(1)

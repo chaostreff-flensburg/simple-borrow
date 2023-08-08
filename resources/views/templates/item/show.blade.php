@@ -21,6 +21,10 @@
         @if ($item->included)
             <p class="mb-8">{{ $item->included }}</p>
         @endif
+        @if ($item->manual_link)
+            <a class="btn btn-primary" href="{{ $item->manual_link }}" target="_blank" role="button">Anleitung</a>
+        @endif
+        <hr>
         <a class="btn btn-success" href="{{ route('item.transaction', $item->id) }}" role="button">{{ $item->borrow_state === 0 ? 'Ausleihen' : 'Zurückgeben' }}</a>
         <div class="collapse collapse-arrow bg-base-200 mt-8">
             <input type="radio" name="my-accordion-2" />
