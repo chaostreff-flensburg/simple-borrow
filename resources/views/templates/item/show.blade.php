@@ -11,6 +11,7 @@
                     Status: ausgeliehen bis {{ $item->transactions->last()->return_date->format('d.m.Y') }}
                 </small>
             @endif
+            @include('partials.item.require-training-badge')
         </hgroup>
         @if ( $item->image )
             <img class="mx-auto object-cover rounded-l" width="500" height="500" src="{{ asset('storage/' . $item->image) }}">

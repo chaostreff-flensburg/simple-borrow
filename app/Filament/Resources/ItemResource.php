@@ -12,6 +12,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 
 class ItemResource extends Resource
 {
@@ -30,6 +31,7 @@ class ItemResource extends Resource
                 TextInput::make('manual_link')
                     ->url()
                     ->suffixIcon('heroicon-m-globe-alt'),
+                Toggle::make('require_training'),
                 FileUpload::make('image')
                     ->image()
                     ->maxFiles(1)

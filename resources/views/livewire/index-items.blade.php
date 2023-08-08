@@ -19,6 +19,7 @@
                         Status: ausgeliehen bis {{ $item->transactions->last()->return_date->format('d.m.Y') }}
                     </small>
                 @endif
+                @include('partials.item.require-training-badge')
                 <div class="card-actions justify-end">
                     <a href="/items/{{ $item->id }}" class="btn btn-primary">Details</a>
                 </div>

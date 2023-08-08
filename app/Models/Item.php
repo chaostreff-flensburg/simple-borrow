@@ -17,6 +17,11 @@ class Item extends Model
         'image',
         'included',
         'manual_link',
+        'require_training',
+    ];
+
+    protected $casts = [
+        'require_training' => 'boolean',
     ];
 
     public function transactions(): HasMany
