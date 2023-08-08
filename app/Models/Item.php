@@ -31,6 +31,6 @@ class Item extends Model
 
     public function getAutoLoginLink(): string
     {
-        return str_replace('://', '://' . config('app.autoLoginCredentials') . '@', route('item.show', $this->id));
+        return str_replace('://', '://'.config('app.autoLoginCredentials').'@', route('item.show', $this->id));
     }
 }
