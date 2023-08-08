@@ -37,7 +37,7 @@ class TransactionController extends Controller
         $item->save();
 
         if ((int) $request->transaction_type === Transaction::BORROWED) {
-            Mail::to($request->email)->send(new ItemBorrowed($item));
+            Mail::to($request->email)->queue(new ItemBorrowed($item));
         }
 
         return redirect()->route('item.show', $request->item_id);

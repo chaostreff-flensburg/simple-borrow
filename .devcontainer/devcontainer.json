@@ -28,7 +28,8 @@
 				"onecentlin.laravel-blade",
 				"MehediDracula.php-namespace-resolver",
 				"bradlc.vscode-tailwindcss",
-				"GitHub.copilot-chat"
+				"GitHub.copilot-chat",
+				"qwtel.sqlite-viewer"
 			]
 		}
 	}

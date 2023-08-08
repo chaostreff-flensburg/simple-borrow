@@ -45,4 +45,4 @@ RUN chmod +x /var/www/html/docker/entrypoint.sh
 EXPOSE 9000
 
 ENTRYPOINT ["bash", "/var/www/html/docker/entrypoint.sh"]
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=9000"]
+CMD php artisan serve --host=0.0.0.0 --port=9000 && php artisan queue:work --tries=3
