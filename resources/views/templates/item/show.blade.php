@@ -27,6 +27,9 @@
         @endif
         <hr>
         <a class="btn btn-success" href="{{ route('item.transaction', $item->id) }}" role="button">{{ $item->borrow_state === 0 ? 'Ausleihen' : 'Zurückgeben' }}</a>
+        @if ($item->borrow_state === App\Models\Item::STATE_BORROWED)
+            <a class="btn btn-error" href="{{ route('item.extend', $item->id) }}" role="button">Verlängern</a>
+        @endif
         <div class="collapse collapse-arrow bg-base-200 mt-8">
             <input type="radio" name="my-accordion-2" />
             <div class="collapse-title text-xl font-medium">

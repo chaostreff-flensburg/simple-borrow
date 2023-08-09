@@ -26,4 +26,9 @@ class ItemController extends Controller
     {
         return view('templates.item.transaction', compact('item'));
     }
+
+    public function extend(Item $item): View
+    {
+        return view('templates.item.extend', compact('item'));
+    }
 }
