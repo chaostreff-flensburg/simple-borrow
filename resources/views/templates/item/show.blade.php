@@ -23,10 +23,10 @@
             <p class="mb-8">{{ $item->included }}</p>
         @endif
         @if ($item->manual_link)
-            <a class="btn btn-primary" href="{{ $item->manual_link }}" target="_blank" role="button">Anleitung</a>
+            <a class="btn btn-primary" href="{{ $item->manual_link }}" target="_blank" role="button">Anleitung / Wiki-Eintrag</a>
         @endif
         <hr>
-        <a class="btn btn-success" href="{{ route('item.transaction', $item->id) }}" role="button">{{ $item->borrow_state === 0 ? 'Ausleihen' : 'Zurückgeben' }}</a>
+        <a class="btn btn-success" href="{{ route('item.transaction', $item->id) }}" role="button">{{ $item->borrow_state === App\Models\Item::STATE_AVAILABLE ? 'Ausleihen' : 'Zurückgeben' }}</a>
         @if ($item->borrow_state === App\Models\Item::STATE_BORROWED)
             <a class="btn btn-error" href="{{ route('item.extend', $item->id) }}" role="button">Verlängern</a>
         @endif
