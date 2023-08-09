@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Log;
 
 class Kernel extends ConsoleKernel
 {
@@ -14,6 +15,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('simple-borrow:send:reminder')->dailyAt('08:00');
         $schedule->command('simple-borrow:send:overdue')->dailyAt('08:00');
+        $schedule->log('info', 'Scheduled commands executed.');
     }
 
     /**
