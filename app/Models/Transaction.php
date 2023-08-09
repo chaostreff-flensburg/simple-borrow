@@ -10,7 +10,7 @@ class Transaction extends Model
 {
     use HasFactory;
 
-    public const AVAILABLE = 0;
+    public const RETURN = 0;
 
     public const BORROWED = 1;
 

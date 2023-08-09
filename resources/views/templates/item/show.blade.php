@@ -2,15 +2,7 @@
     <article class="prose min-w-full">
         <hgroup>
             <h1>{{ $item->name }}</h1>
-            @if ($item->borrow_state === 0)
-                <small class="badge badge-success">
-                    Status: verfügbar
-                </small>
-            @else
-                <small class="badge badge-error">
-                    Status: ausgeliehen bis {{ $item->transactions->last()->return_date->format('d.m.Y') }}
-                </small>
-            @endif
+            @include('partials.item.availability-badge')
             @include('partials.item.require-training-badge')
         </hgroup>
         @if ( $item->image )
@@ -26,8 +18,8 @@
             <a class="btn btn-primary" href="{{ $item->manual_link }}" target="_blank" role="button">Anleitung / Wiki-Eintrag</a>
         @endif
         <hr>
-        <a class="btn btn-success" href="{{ route('item.transaction', $item->id) }}" role="button">{{ $item->borrow_state === App\Models\Item::STATE_AVAILABLE ? 'Ausleihen' : 'Zurückgeben' }}</a>
-        @if ($item->borrow_state === App\Models\Item::STATE_BORROWED)
+        <a class="btn btn-success" href="{{ route('item.transaction', $item->id) }}" role="button">{{ $item->transactions->last()->transaction_type === App\Models\Transaction::RETURN ? 'Ausleihen' : 'Zurückgeben' }}</a>
+        @if ($item->transactions->last()->transaction_type === App\Models\Transaction::BORROWED)
             <a class="btn btn-error" href="{{ route('item.extend', $item->id) }}" role="button">Verlängern</a>
         @endif
         <div class="collapse collapse-arrow bg-base-200 mt-8">

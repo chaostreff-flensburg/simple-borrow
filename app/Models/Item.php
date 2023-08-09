@@ -10,10 +10,6 @@ class Item extends Model
 {
     use HasFactory;
 
-    public const STATE_AVAILABLE = 0;
-
-    public const STATE_BORROWED = 1;
-
     protected $fillable = [
         'name',
         'description',

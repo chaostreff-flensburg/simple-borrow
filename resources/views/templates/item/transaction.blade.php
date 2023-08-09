@@ -1,6 +1,6 @@
 <x-layout>
     <article class="prose min-w-full">
-        <h1>{{ $item->borrow_state === App\Models\Item::STATE_AVAILABLE ? 'Ausleihen' : 'Zurückgeben' }}: {{ $item->name }}</h1>
+        <h1>{{ $item->transactions->last()->transaction_type === App\Models\Transaction::RETURN ? 'Ausleihen' : 'Zurückgeben' }}: {{ $item->name }}</h1>
         <form action="{{ route('transaction.create') }}" method="post">
             @csrf
             @method('POST')

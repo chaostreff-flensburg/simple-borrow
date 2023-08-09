@@ -10,15 +10,7 @@
             <div class="card-body">
                 <h2 class="card-title"><a href="/items/{{ $item->id }}">{{ $item->name }}</a></h2>
                 <p>{{ $item->description }}</p>
-                @if ($item->borrow_state === 0)
-                    <small class="badge badge-success">
-                        Status: verfügbar
-                    </small>
-                @else
-                    <small class="badge badge-error">
-                        Status: ausgeliehen bis {{ $item->transactions->last()->return_date->format('d.m.Y') }}
-                    </small>
-                @endif
+                @include('partials.item.availability-badge')
                 @include('partials.item.require-training-badge')
                 <div class="card-actions justify-end">
                     <a href="/items/{{ $item->id }}" class="btn btn-primary">Details</a>
