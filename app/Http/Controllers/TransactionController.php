@@ -33,12 +33,8 @@ class TransactionController extends Controller
             ]
         );
 
-        $item = Item::find($request->item_id);
-        $item->borrow_state = $request->transaction_type;
-        $item->save();
-
-        if ((int) $request->transaction_type === Transaction::BORROWED) {
-            Mail::to($request->email)->queue(new ItemBorrowed($item));
+        if ((int) $request->transaction_type === Transaction::BORROW) {
+            Mail::to($request->email)->queue(new ItemBorrowed(Item::find($request->item_id)));
         }
 
         return redirect()->route('item.show', $request->item_id);
@@ -52,7 +48,7 @@ class TransactionController extends Controller
         ]);
 
         $transaction = Transaction::where('item_id', $request->item_id)
-            ->where('transaction_type', Transaction::BORROWED)
+            ->where('transaction_type', Transaction::BORROW)
             ->orderBy('created_at', 'desc')
             ->first();
 

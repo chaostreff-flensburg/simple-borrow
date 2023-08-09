@@ -12,7 +12,7 @@ class Transaction extends Model
 
     public const RETURN = 0;
 
-    public const BORROWED = 1;
+    public const BORROW = 1;
 
     protected $fillable = [
         'return_date',

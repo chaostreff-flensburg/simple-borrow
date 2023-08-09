@@ -18,8 +18,8 @@
             <a class="btn btn-primary" href="{{ $item->manual_link }}" target="_blank" role="button">Anleitung / Wiki-Eintrag</a>
         @endif
         <hr>
-        <a class="btn btn-success" href="{{ route('item.transaction', $item->id) }}" role="button">{{ $item->transactions->last()->transaction_type === App\Models\Transaction::RETURN ? 'Ausleihen' : 'Zurückgeben' }}</a>
-        @if ($item->transactions->last()->transaction_type === App\Models\Transaction::BORROWED)
+        <a class="btn btn-success" href="{{ route('item.transaction', $item->id) }}" role="button">{{ $item->transactions->last()?->transaction_type === App\Models\Transaction::BORROW ? 'Zurückgeben' : 'Ausleihen' }}</a>
+        @if ($item->transactions->last()?->transaction_type === App\Models\Transaction::BORROW)
             <a class="btn btn-error" href="{{ route('item.extend', $item->id) }}" role="button">Verlängern</a>
         @endif
         <div class="collapse collapse-arrow bg-base-200 mt-8">
