@@ -15,7 +15,6 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('simple-borrow:send:reminder')->dailyAt('08:00');
         $schedule->command('simple-borrow:send:overdue')->dailyAt('08:00');
-        $schedule->log('info', 'Scheduled commands executed.');
     }
 
     /**
