@@ -2,10 +2,10 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
 use App\Helpers\ItemHelper;
-use Illuminate\Support\Facades\Mail;
 use App\Mail\RemindToReturnItem;
+use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Mail;
 
 class SendOverDueMail extends Command
 {

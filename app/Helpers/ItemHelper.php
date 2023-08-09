@@ -14,7 +14,7 @@ class ItemHelper
         return Item::whereHas('transactions', function ($query) use ($days) {
             $query->where('return_date', '!=', null)
                 ->where('return_date', '<=', now()->addDays($days))
-                ->where('return_date', '>=', now() )
+                ->where('return_date', '>=', now())
                 ->where('transaction_type', '=', 1)
                 ->where('email', '!=', null);
         })->get();

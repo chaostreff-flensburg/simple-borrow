@@ -6,9 +6,8 @@ use App\Models\Item;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Envelope;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\SerializesModels;
 
 class OverDueReturn extends Mailable
 {
@@ -19,7 +18,8 @@ class OverDueReturn extends Mailable
      */
     public function __construct(
         public Item $item,
-    ) {}
+    ) {
+    }
 
     /**
      * Get the message envelope.
