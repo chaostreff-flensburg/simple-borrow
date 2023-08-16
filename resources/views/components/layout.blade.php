@@ -9,7 +9,7 @@
     </head>
     @include('partials.header')
     <body>
-        <main class="container my-8 mx-auto">
+        <main class="w-11/12 my-8 mx-auto md:container">
             {{ $slot }}
         </main>
         @livewireScripts
