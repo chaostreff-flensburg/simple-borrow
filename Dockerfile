@@ -42,9 +42,7 @@ RUN rm -rf node_modules
 
 RUN chmod +x /var/www/html/docker/entrypoint.sh
 
-RUN echo "* * * * * cd /var/www/html && php artisan schedule:run >> /dev/null 2>&1" >> /var/spool/cron/crontabs/root
-
 EXPOSE 9000
 
 ENTRYPOINT ["bash", "/var/www/html/docker/entrypoint.sh"]
-CMD crond && php artisan serve --host=0.0.0.0 --port=9000 && php artisan queue:work --tries=3
+CMD php artisan serve --host=0.0.0.0 --port=9000 && php artisan queue:work --tries=3
