@@ -41,9 +41,8 @@ RUN npm run build
 RUN rm -rf node_modules
 
 RUN chmod +x /var/www/html/docker/entrypoint.sh
-RUN chmod +x /var/www/html/docker/startup.sh
 
 EXPOSE 9000
 
 ENTRYPOINT ["bash", "/var/www/html/docker/entrypoint.sh"]
-CMD ["bash", "/var/www/html/docker/startup.sh"]
+CMD php artisan queue:listen --tries=3 & php artisan serve --host=0.0.0.0 --port=9000
