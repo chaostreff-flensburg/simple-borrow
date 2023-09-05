@@ -12,6 +12,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Forms\Components\CheckboxList;
 
 class ItemResource extends Resource
 {
@@ -31,6 +32,10 @@ class ItemResource extends Resource
                     ->url()
                     ->suffixIcon('heroicon-m-globe-alt'),
                 Toggle::make('require_training'),
+                CheckboxList::make('tags')
+                    ->columns(2)
+                    ->gridDirection('row')
+                    ->relationship('tags', titleAttribute: 'title'),
                 FileUpload::make('image')
                     ->image()
                     ->maxFiles(1)

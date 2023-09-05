@@ -12,7 +12,12 @@
                 <p>{{ $item->description }}</p>
                 @include('partials.item.availability-badge')
                 @include('partials.item.require-training-badge')
-                <div class="card-actions justify-end">
+                <div class="card-actions justify-between items-end">
+                    <div>
+                        @foreach ($item->tags as $tag)
+                            @include('partials.badges.default', ['title' => $tag->title])
+                        @endforeach
+                    </div>
                     <a href="/items/{{ $item->id }}" class="btn btn-primary">Details</a>
                 </div>
             </div>

@@ -20,9 +20,11 @@ class IndexItems extends Component
     {
 
         if ($this->term) {
-            $this->items = Item::where('name', 'like', '%'.$this->term.'%')->get();
+            $this->items = Item::where('name', 'like', '%'.$this->term.'%')
+                ->with('tags')
+                ->get();
         } else {
-            $this->items = Item::all();
+            $this->items = Item::with('tags')->get();
         }
 
         return view('livewire.index-items');
