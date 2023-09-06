@@ -1,34 +1,48 @@
-FROM serversideup/php:8.2-fpm-nginx
+FROM php:8.2-cli-alpine3.17
 
-ENV AUTORUN_LARAVEL_MIGRATION=true
-ENV AUTORUN_ENABLED=false
-ENV TZ=Europe/Berlin
-ENV PHP_DATE_TIMEZONE=Europe/Berlin
-ENV SSL_MODE=off
+RUN mkdir -p /var/www/html
+RUN mkdir -p /var/www/html/databasestore
 
 WORKDIR /var/www/html
 
-RUN apt-get update
-RUN apt-get -y install curl gnupg
-RUN curl -sL https://deb.nodesource.com/setup_18.x  | bash -
-RUN apt-get -y install nodejs
+RUN apk add --no-cache \
+    bash \
+    gnupg \
+    libzip-dev \
+    nodejs~=18 \
+    npm~=9 \
+    unzip \
+    zip \
+    icu-dev \
+    icu-libs \
+    jpegoptim \
+    optipng \
+    pngquant \
+    gifsicle \
+    libpng-dev \
+    libjpeg-turbo-dev \
+    tzdata
+
+# Install PHP extensions
+RUN docker-php-ext-configure gd --enable-gd --with-jpeg
+RUN docker-php-ext-install pdo_mysql bcmath intl exif gd
+
+COPY docker/php.ini /usr/local/etc/php/php.ini
+
+ENV TZ=Europe/Berlin
+
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+COPY ./ /var/www/html
+
+RUN composer install --optimize-autoloader --no-interaction --no-dev
 RUN npm ci
 RUN npm run build
 RUN rm -rf node_modules
 
-USER $PUID:$PGID
+RUN chmod +x /var/www/html/docker/entrypoint.sh
 
-RUN mkdir -p /var/www/html/databasestore
+EXPOSE 9000
 
-COPY --chown=$PUID:$PGID ./ /var/www/html
-
-RUN composer install --optimize-autoloader --no-interaction --no-dev
-
-RUN npm ci
-RUN npm run build
-
-RUN php ./artisan event:cache && \
-    php ./artisan route:cache && \
-    php ./artisan view:cache
-
-USER root:root
+ENTRYPOINT ["bash", "/var/www/html/docker/entrypoint.sh"]
+CMD php artisan queue:listen --tries=3 & php artisan serve --host=0.0.0.0 --port=9000
