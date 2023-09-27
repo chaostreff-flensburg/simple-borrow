@@ -1,9 +1,8 @@
-FROM php:8.2-cli-alpine3.17
+FROM dunglas/frankenphp
 
-RUN mkdir -p /var/www/html
-RUN mkdir -p /var/www/html/databasestore
+RUN mkdir -p /app/databasestore
 
-WORKDIR /var/www/html
+WORKDIR /app
 
 RUN apk add --no-cache \
     bash \
@@ -27,22 +26,19 @@ RUN apk add --no-cache \
 RUN docker-php-ext-configure gd --enable-gd --with-jpeg
 RUN docker-php-ext-install pdo_mysql bcmath intl exif gd
 
-COPY docker/php.ini /usr/local/etc/php/php.ini
-
 ENV TZ=Europe/Berlin
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-COPY ./ /var/www/html
+COPY ./ /app
 
 RUN composer install --optimize-autoloader --no-interaction --no-dev
 RUN npm ci
 RUN npm run build
 RUN rm -rf node_modules
 
-RUN chmod +x /var/www/html/docker/entrypoint.sh
+RUN chmod +x /app/docker/entrypoint.sh
 
-EXPOSE 9000
+EXPOSE 80
 
 ENTRYPOINT ["bash", "/var/www/html/docker/entrypoint.sh"]
-CMD php artisan queue:listen --tries=3 & php artisan serve --host=0.0.0.0 --port=9000
