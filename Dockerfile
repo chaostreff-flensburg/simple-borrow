@@ -41,4 +41,4 @@ RUN chmod +x /app/docker/entrypoint.sh
 
 EXPOSE 80
 
-ENTRYPOINT ["bash", "/var/www/html/docker/entrypoint.sh"]
+ENTRYPOINT ["bash", "/app/docker/entrypoint.sh"]
