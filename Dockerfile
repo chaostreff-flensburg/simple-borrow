@@ -1,4 +1,4 @@
-FROM dunglas/frankenphp
+FROM dunglas/frankenphp:latest-php8.2-alpine
 
 RUN mkdir -p /app/databasestore
 
