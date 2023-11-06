@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Models\Item;
-use App\Models\Transaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 

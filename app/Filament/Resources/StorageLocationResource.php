@@ -2,17 +2,17 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\TagResource\Pages;
-use App\Models\Tag;
+use App\Filament\Resources\StorageLocationResource\Pages;
+use App\Models\StorageLocation;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 
-class TagResource extends Resource
+class StorageLocationResource extends Resource
 {
-    protected static ?string $model = Tag::class;
+    protected static ?string $model = StorageLocation::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -20,8 +20,12 @@ class TagResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('title')
+                Forms\Components\TextInput::make('name')
                     ->required(),
+                Forms\Components\Textarea::make('description')
+                    ->columnSpanFull(),
+                Forms\Components\Textarea::make('looseInventory')
+                    ->columnSpanFull(),
             ]);
     }
 
@@ -37,7 +41,7 @@ class TagResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('title')
+                Tables\Columns\TextColumn::make('name')
                     ->searchable(),
             ])
             ->filters([
@@ -50,9 +54,6 @@ class TagResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ])
-            ->emptyStateActions([
-                Tables\Actions\CreateAction::make(),
             ]);
     }
 
@@ -66,9 +67,9 @@ class TagResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListTags::route('/'),
-            'create' => Pages\CreateTag::route('/create'),
-            'edit' => Pages\EditTag::route('/{record}/edit'),
+            'index' => Pages\ListStorageLocations::route('/'),
+            'create' => Pages\CreateStorageLocation::route('/create'),
+            'edit' => Pages\EditStorageLocation::route('/{record}/edit'),
         ];
     }
 }

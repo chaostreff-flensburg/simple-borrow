@@ -4,7 +4,10 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ItemResource\Pages;
 use App\Models\Item;
+use App\Models\StorageLocation;
+use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -12,7 +15,6 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Filament\Forms\Components\CheckboxList;
 
 class ItemResource extends Resource
 {
@@ -36,6 +38,10 @@ class ItemResource extends Resource
                     ->columns(2)
                     ->gridDirection('row')
                     ->relationship('tags', titleAttribute: 'title'),
+                Select::make('storage_location_id')
+                    ->label('Storage Location')
+                    ->options(StorageLocation::all()->pluck('name', 'id'))
+                    ->searchable(['name', 'id']),
                 FileUpload::make('image')
                     ->image()
                     ->maxFiles(1)

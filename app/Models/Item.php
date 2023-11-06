@@ -2,13 +2,16 @@
 
 namespace App\Models;
 
+use App\Traits\AutoLoginLinkTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Item extends Model
 {
+    use AutoLoginLinkTrait;
     use HasFactory;
 
     protected $fillable = [
@@ -19,6 +22,7 @@ class Item extends Model
         'included',
         'manual_link',
         'require_training',
+        'storage_location_id',
     ];
 
     protected $casts = [
@@ -30,13 +34,18 @@ class Item extends Model
         return $this->hasMany(Transaction::class);
     }
 
+    public function storageLocation(): BelongsTo
+    {
+        return $this->belongsTo(StorageLocation::class);
+    }
+
     public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class, 'item_tag', 'item_id', 'tag_id');
     }
 
-    public function getAutoLoginLink(): string
+    protected function getRouteName(): string
     {
-        return str_replace('://', '://'.config('app.autoLoginCredentials').'@', route('item.show', $this->id));
+        return 'item.show';
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\StorageLocationController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,12 @@ Route::group(['middleware' => 'auth.basic'], function () {
             Route::get('/{item}/print', [ItemController::class, 'print'])->name('item.print');
             Route::get('/{item}/transaction', [ItemController::class, 'transaction'])->name('item.transaction');
             Route::get('/{item}/extend', [ItemController::class, 'extend'])->name('item.extend');
+        });
+
+        Route::group(['prefix' => 'storage-locations'], function () {
+            Route::get('/', [StorageLocationController::class, 'index'])->name('storageLocation.index');
+            Route::get('/{storageLocation}', [StorageLocationController::class, 'show'])->name('storageLocation.show');
+            Route::get('/{storageLocation}/print', [StorageLocationController::class, 'print'])->name('storageLocation.print');
         });
 
         Route::group(['prefix' => 'transactions'], function () {

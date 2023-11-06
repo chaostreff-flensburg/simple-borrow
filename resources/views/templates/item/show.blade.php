@@ -17,6 +17,9 @@
         @if ($item->manual_link)
             <a class="btn btn-primary" href="{{ $item->manual_link }}" target="_blank" role="button">Anleitung / Wiki-Eintrag</a>
         @endif
+        @if ($item->storage_location_id !== null)
+            <a class="btn btn-primary" href="{{ route('storageLocation.show', ['storageLocation' => $item->storageLocation]) }}" role="button">Zum Lagerort</a>
+        @endif
         <hr>
         <a class="btn btn-success" href="{{ route('item.transaction', $item->id) }}" role="button">{{ $item->transactions->last()?->transaction_type === App\Models\Transaction::BORROW ? 'Zurückgeben' : 'Ausleihen' }}</a>
         @if ($item->transactions->last()?->transaction_type === App\Models\Transaction::BORROW)

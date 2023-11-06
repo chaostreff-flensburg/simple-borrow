@@ -9,8 +9,6 @@ RUN apk add --no-cache \
     bash \
     gnupg \
     libzip-dev \
-    nodejs~=18 \
-    npm~=9 \
     unzip \
     zip \
     icu-dev \
@@ -23,6 +21,14 @@ RUN apk add --no-cache \
     libjpeg-turbo-dev \
     tzdata
 
+# Install Composer manually
+COPY --from=composer/composer:latest-bin /composer /usr/bin/composer
+
+# Install Node and NPM manually
+COPY --from=node:20-alpine /usr/local/bin /usr/local/bin
+COPY --from=node:20-alpine /usr/local/lib/node_modules /usr/local/lib/node_modules
+
+
 # Install PHP extensions
 RUN docker-php-ext-configure gd --enable-gd --with-jpeg
 RUN docker-php-ext-install pdo_mysql bcmath intl exif gd
@@ -30,8 +36,6 @@ RUN docker-php-ext-install pdo_mysql bcmath intl exif gd
 COPY docker/php.ini /usr/local/etc/php/php.ini
 
 ENV TZ=Europe/Berlin
-
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 COPY ./ /var/www/html
 
