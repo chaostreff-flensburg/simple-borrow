@@ -5,7 +5,7 @@
     @foreach ($items as $item)
         <div class="card card-side bg-base-100 shadow-xl mb-4">
             @if ( $item->image )
-                <img class="object-cover rounded-l" width="200" height="200" src="{{ asset('storage/' . $item->image) }}">
+                <img class="object-cover rounded-l" loading="lazy" width="200" height="200" src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->name }}">
             @endif
             <div class="card-body">
                 <h2 class="card-title"><a href="/items/{{ $item->id }}">{{ $item->name }}</a></h2>
