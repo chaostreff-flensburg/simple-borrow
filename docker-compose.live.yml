@@ -1,0 +1,68 @@
+version: '3'
+
+networks:
+  web:
+    external: true
+
+volumes:
+  storage:
+
+services:
+  ausleihe:
+    image: ghcr.io/chaostreff-flensburg/simple-borrow:latest
+    restart: always
+    volumes:
+      - storage:/var/www/html/storage
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.ausleihe.rule=Host(`ausleihe.chaostreff-flensburg.de`)"
+      - "traefik.http.routers.ausleihe.entrypoints=https,http"
+      - "traefik.http.services.ausleihe.loadbalancer.server.port=80"
+      - "traefik.http.routers.ausleihe.tls.certresolver=mytlschallenge"
+      - "traefik.docker.network=web"
+    working_dir: /var/www/html
+    networks:
+      - web
+    env_file:
+      - .env
+    logging:
+      options:
+        max-size: "10m"
+
+  schedule:
+    image: ghcr.io/chaostreff-flensburg/simple-borrow:latest
+    restart: always
+    volumes:
+      - storage:/var/www/html/storage
+    working_dir: /var/www/html
+    depends_on:
+      - ausleihe
+    env_file:
+      - .env
+    logging:
+      options:
+        max-size: "10m"
+    command:
+      - /bin/bash
+      - -c
+      - |
+        sudo -u unit php artisan schedule:work -v
+
+  queue:
+    image: ghcr.io/chaostreff-flensburg/simple-borrow:latest
+    restart: always
+    volumes:
+      - storage:/var/www/html/storage
+    working_dir: /var/www/html
+    depends_on:
+      - ausleihe
+    env_file:
+      - .env
+    logging:
+      options:
+        max-size: "10m"
+    command:
+      - /bin/bash
+      - -c
+      - |
+        sudo -u unit php artisan queue:listen --tries=3 -v
