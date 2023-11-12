@@ -35,6 +35,7 @@ RUN apt-get update && apt-get install -y \
     libjpeg-dev \
     libpng-dev \
     libfreetype6-dev \
+    sudo \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
