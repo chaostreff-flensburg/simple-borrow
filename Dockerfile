@@ -25,7 +25,7 @@ RUN mkdir -p /var/www/html/databasestore
 
 WORKDIR /var/www/html
 
-COPY --from=build /var/www/html /var/www/html
+COPY --from=build --chown=unit:unit /var/www/html /var/www/html
 
 ENV TZ=Europe/Berlin
 
