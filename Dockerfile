@@ -43,7 +43,8 @@ RUN docker-php-ext-install intl gd
 
 COPY docker/config.json /docker-entrypoint.d/config.json
 
-RUN chmod +x /var/www/html/docker/entrypoint.sh
+COPY docker/entrypoint.sh /docker-entrypoint.d/entrypoint.sh
+
+RUN chmod +x /docker-entrypoint.d/entrypoint.sh
 
 EXPOSE 80
-CMD ["unitd","--no-daemon","--control","unix:/var/run/control.unit.sock"]
