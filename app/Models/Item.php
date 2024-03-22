@@ -23,11 +23,18 @@ class Item extends Model
         'manual_link',
         'require_training',
         'storage_location_id',
+        'approved',
     ];
 
     protected $casts = [
         'require_training' => 'boolean',
+        'approved' => 'boolean',
     ];
+
+    public function scopeApproved($query)
+    {
+        return $query->where('approved', true);
+    }
 
     public function transactions(): HasMany
     {

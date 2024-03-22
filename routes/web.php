@@ -19,6 +19,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ItemController::class, 'guest'])->name('home');
 
+Route::get('/items/suggest', [ItemController::class, 'suggest'])->name('item.suggest');
+Route::post('/items/suggest', [ItemController::class, 'storeSuggestion'])->name('item.storeSuggestion');
+
 Route::group(['middleware' => 'auth.basic'], function () {
     Route::group(['middleware' => 'auth.basic'], function () {
         Route::group(['prefix' => 'items'], function () {

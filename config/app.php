@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Facade;
 
 return [
 
+    'approvingUserEmail' => env('APPROVING_USER_EMAIL', null),
+
     'autoLoginCredentials' => env('AUTO_LOGIN_CREDENTIALS', null),
 
     /*

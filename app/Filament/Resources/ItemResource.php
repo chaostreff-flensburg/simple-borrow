@@ -2,19 +2,23 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ItemResource\Pages;
 use App\Models\Item;
+use Filament\Tables;
+use Filament\Forms\Form;
+use Filament\Tables\Table;
 use App\Models\StorageLocation;
-use Filament\Forms\Components\CheckboxList;
-use Filament\Forms\Components\FileUpload;
+use Filament\Resources\Resource;
+use Filament\Tables\Filters\Filter;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Toggle;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Table;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\CheckboxList;
+use App\Filament\Resources\ItemResource\Pages;
+use Illuminate\Contracts\Database\Eloquent\Builder;
+use Filament\Tables\Actions\Action;
 
 class ItemResource extends Resource
 {
@@ -38,6 +42,7 @@ class ItemResource extends Resource
                     ->columns(2)
                     ->gridDirection('row')
                     ->relationship('tags', titleAttribute: 'title'),
+                Checkbox::make('approved')->name('Approved')->default(true),
                 Select::make('storage_location_id')
                     ->label('Storage Location')
                     ->options(StorageLocation::all()->pluck('name', 'id'))
@@ -58,13 +63,19 @@ class ItemResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('description')->limit(30),
-                Tables\Columns\TextColumn::make('borrow_state'),
+                Tables\Columns\TextColumn::make('approved'),
             ])
             ->filters([
-                //
+                Filter::make('approved')->toggle()
+                ->label('Not approved')
+                ->query(fn (Builder $query): Builder => $query->where('approved', false)),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Action::make('approve')
+                    ->label('Approve')
+                    ->icon('heroicon-o-check-circle')
+                    ->action(fn (Item $item) => $item->update(['approved' => true])),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),

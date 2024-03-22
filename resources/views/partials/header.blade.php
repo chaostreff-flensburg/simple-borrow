@@ -5,6 +5,7 @@
         </div>
         <div class="flex-none">
             <ul class="menu menu-horizontal px-1">
+                <li><a href="{{ route('item.suggest') }}">{{ __('Suggest item') }}</a></li>
                 <li><a href="{{ route('item.index') }}">{{ __('Borrow items') }}</a></li>
                 <li><a href="{{ route('storageLocation.index') }}">{{ __('Storage Locations') }}</a></li>
             </ul>

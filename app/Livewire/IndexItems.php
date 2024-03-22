@@ -13,18 +13,17 @@ class IndexItems extends Component
 
     public function mount()
     {
-        $this->items = Item::all();
+        $this->items = Item::approved()->get();
     }
 
     public function render()
     {
 
         if ($this->term) {
-            $this->items = Item::where('name', 'like', '%'.$this->term.'%')
+            $this->items = Item::approved()
+                ->where('name', 'like', '%'.$this->term.'%')
                 ->with('tags')
                 ->get();
-        } else {
-            $this->items = Item::with('tags')->get();
         }
 
         return view('livewire.index-items');
