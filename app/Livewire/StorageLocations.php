@@ -21,7 +21,6 @@ class StorageLocations extends Component
 
         if ($this->term) {
             $this->storageLocations = StorageLocation::where('name', 'like', '%'.$this->term.'%')
-                ->with('tags')
                 ->get();
         } else {
             $this->storageLocations = StorageLocation::all();

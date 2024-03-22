@@ -8,7 +8,7 @@
                 <h2 class="card-title"><a href="/items/{{ $storageLocation->id }}">{{ $storageLocation->name }}</a></h2>
                 <p>{{ $storageLocation->description }}</p>
                 <div class="card-actions justify-between items-end">
-                    <a href="/items/{{ $storageLocation->id }}" class="btn btn-primary">Details</a>
+                    <a href="{{ route('storageLocation.show', ['storageLocation' => $storageLocation]) }}" class="btn btn-primary">Details</a>
                 </div>
             </div>
         </div>
