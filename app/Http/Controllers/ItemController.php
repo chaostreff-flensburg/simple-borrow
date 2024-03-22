@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Item;
-use Illuminate\View\View;
 use App\Mail\ItemSuggested;
+use App\Models\Item;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class ItemController extends Controller
 {
@@ -65,7 +65,7 @@ class ItemController extends Controller
             'approved' => false,
         ]);
 
-        if(config('app.approvingUserEmail')) {
+        if (config('app.approvingUserEmail')) {
             Mail::to(config('app.approvingUserEmail'))->queue(new ItemSuggested($item));
         }
 

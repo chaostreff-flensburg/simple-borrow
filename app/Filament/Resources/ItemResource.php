@@ -2,23 +2,23 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\ItemResource\Pages;
 use App\Models\Item;
-use Filament\Tables;
-use Filament\Forms\Form;
-use Filament\Tables\Table;
 use App\Models\StorageLocation;
-use Filament\Resources\Resource;
-use Filament\Tables\Filters\Filter;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Checkbox;
+use Filament\Forms\Components\CheckboxList;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\CheckboxList;
-use App\Filament\Resources\ItemResource\Pages;
-use Illuminate\Contracts\Database\Eloquent\Builder;
+use Filament\Forms\Components\Toggle;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
 use Filament\Tables\Actions\Action;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Table;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class ItemResource extends Resource
 {
@@ -67,8 +67,8 @@ class ItemResource extends Resource
             ])
             ->filters([
                 Filter::make('approved')->toggle()
-                ->label('Not approved')
-                ->query(fn (Builder $query): Builder => $query->where('approved', false)),
+                    ->label('Not approved')
+                    ->query(fn (Builder $query): Builder => $query->where('approved', false)),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

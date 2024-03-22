@@ -2,13 +2,14 @@
 
 namespace App\Livewire;
 
-use Livewire\Component;
 use App\Models\Item;
 use App\Models\Tag;
+use Livewire\Component;
 
 class ItemsGuest extends Component
 {
     public $items;
+
     public $tags;
 
     public function mount()
@@ -26,6 +27,7 @@ class ItemsGuest extends Component
     {
         if ($tagId == null) {
             $this->items = Item::approved()->get();
+
             return;
         }
 
