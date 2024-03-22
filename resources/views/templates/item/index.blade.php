@@ -1,3 +1,3 @@
 <x-layout>
-   @livewire('index-items')
+    @livewire('index-items')
 </x-layout>

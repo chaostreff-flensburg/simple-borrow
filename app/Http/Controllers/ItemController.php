@@ -7,6 +7,11 @@ use Illuminate\View\View;
 
 class ItemController extends Controller
 {
+    public function guest(): View
+    {
+        return view('templates.item.guest');
+    }
+
     public function index(): View
     {
         return view('templates.item.index');

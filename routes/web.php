@@ -3,6 +3,7 @@
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\StorageLocationController;
 use App\Http\Controllers\TransactionController;
+use App\Models\Item;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,10 +17,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', [ItemController::class, 'guest'])->name('home');
+
 Route::group(['middleware' => 'auth.basic'], function () {
-
-    Route::redirect('/', '/items');
-
     Route::group(['middleware' => 'auth.basic'], function () {
         Route::group(['prefix' => 'items'], function () {
             Route::get('/', [ItemController::class, 'index'])->name('item.index');
