@@ -1,51 +1,46 @@
-FROM php:8.2-cli-alpine3.18 AS build
+FROM php:8.2-cli-alpine3.17
 
 RUN mkdir -p /var/www/html
 RUN mkdir -p /var/www/html/databasestore
 
 WORKDIR /var/www/html
+
+RUN apk add --no-cache \
+    bash \
+    gnupg \
+    libzip-dev \
+    unzip \
+    zip \
+    icu-dev \
+    icu-libs \
+    jpegoptim \
+    optipng \
+    pngquant \
+    gifsicle \
+    libpng-dev \
+    libjpeg-turbo-dev \
+    tzdata
 
 # Install Composer manually
 COPY --from=composer/composer:latest-bin /composer /usr/bin/composer
 
-RUN apk add --no-cache \
-    npm
+# Install Node and NPM manually
+COPY --from=node:20-alpine /usr/local/bin /usr/local/bin
+COPY --from=node:20-alpine /usr/local/lib/node_modules /usr/local/lib/node_modules
+
+# Install PHP extensions
+RUN docker-php-ext-configure gd --enable-gd --with-jpeg
+RUN docker-php-ext-install pdo_mysql bcmath intl exif gd
+
+ENV TZ=Europe/Berlin
 
 COPY ./ /var/www/html
 
-RUN composer install --optimize-autoloader --no-interaction --no-dev --ignore-platform-req=ext-intl
+RUN composer install --optimize-autoloader --no-interaction --no-dev
 RUN npm ci
 RUN npm run build
 RUN rm -rf node_modules
 
-FROM unit:php8.2
+RUN chmod +x /var/www/html/docker/*.sh
 
-RUN mkdir -p /var/www/html
-RUN mkdir -p /var/www/html/databasestore
-
-WORKDIR /var/www/html
-
-COPY --from=build --chown=unit:unit /var/www/html /var/www/html
-
-ENV TZ=Europe/Berlin
-
-# Update package lists and install required dependencies
-RUN apt-get update && apt-get install -y \
-    libicu-dev \
-    libjpeg-dev \
-    libpng-dev \
-    libfreetype6-dev \
-    sudo \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
-# Install and enable the intl and gd extensions
-RUN docker-php-ext-install intl gd
-
-COPY docker/config.json /docker-entrypoint.d/config.json
-
-COPY docker/entrypoint.sh /docker-entrypoint.d/entrypoint.sh
-
-RUN chmod +x /docker-entrypoint.d/entrypoint.sh
-
-EXPOSE 80
+EXPOSE 9000
