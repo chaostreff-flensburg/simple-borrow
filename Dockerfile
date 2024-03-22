@@ -19,7 +19,10 @@ RUN apk add --no-cache \
     gifsicle \
     libpng-dev \
     libjpeg-turbo-dev \
-    tzdata
+    tzdata \
+    unzip \
+    zip
+
 
 # Install Composer manually
 COPY --from=composer/composer:latest-bin /composer /usr/bin/composer
@@ -30,7 +33,7 @@ COPY --from=node:20-alpine /usr/local/lib/node_modules /usr/local/lib/node_modul
 
 # Install PHP extensions
 RUN docker-php-ext-configure gd --enable-gd --with-jpeg
-RUN docker-php-ext-install pdo_mysql bcmath intl exif gd
+RUN docker-php-ext-install pdo_mysql bcmath intl exif gd zip
 
 ENV TZ=Europe/Berlin
 
