@@ -5,7 +5,7 @@
                 <button class="badge badge-outline" wire:click="filter({{ $tag->id }})" >{{ $tag->title }}</button>
             @endforeach
     </section>
-    <section class="grid md:grid-cols-2 lg:grid-cols-3">
+    <section class="grid gap-2 md:grid-cols-2 lg:grid-cols-3">
         @foreach ($items as $item)
             <x-card :name="$item->name" :image="$item->image" :description="$item->description" :tags="$item->tags"/>
         @endforeach
