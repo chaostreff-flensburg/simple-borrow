@@ -1,4 +1,4 @@
-FROM php:8.3-cli-alpine3.19
+FROM php:8.2-cli-alpine3.17
 
 RUN mkdir -p /var/www/html
 RUN mkdir -p /var/www/html/databasestore
