@@ -74,8 +74,14 @@ class ItemResource extends Resource
                 Tables\Actions\EditAction::make(),
                 Action::make('approve')
                     ->label('Approve')
+                    ->color('success')
                     ->icon('heroicon-o-check-circle')
                     ->action(fn (Item $item) => $item->update(['approved' => true])),
+                Action::make('disapprove')
+                    ->label('Disapprove')
+                    ->icon('heroicon-o-x-circle')
+                    ->color('danger')
+                    ->action(fn (Item $item) => $item->delete()),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
