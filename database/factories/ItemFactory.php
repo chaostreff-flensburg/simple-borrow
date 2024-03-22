@@ -22,6 +22,7 @@ class ItemFactory extends Factory
             'included' => $this->faker->text,
             'manual_link' => $this->faker->url,
             'require_training' => $this->faker->boolean,
+            'approved' => $this->faker->boolean,
         ];
     }
 }
