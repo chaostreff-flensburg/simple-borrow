@@ -24,6 +24,7 @@ class Item extends Model
         'require_training',
         'storage_location_id',
         'approved',
+        'price',
     ];
 
     protected $casts = [

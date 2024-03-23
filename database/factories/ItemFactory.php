@@ -23,6 +23,7 @@ class ItemFactory extends Factory
             'manual_link' => $this->faker->url,
             'require_training' => $this->faker->boolean,
             'approved' => $this->faker->boolean,
+            'price' => $this->faker->randomFloat(2, 0, 1000),
         ];
     }
 }

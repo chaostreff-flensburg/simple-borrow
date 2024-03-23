@@ -54,6 +54,10 @@ class ItemResource extends Resource
                     ->acceptedFileTypes(['image/*'])
                     ->imageResizeMode('cover')
                     ->imageResizeTargetWidth('820'),
+                TextInput::make('price')
+                    ->label('Price')
+                    ->type('number')
+                    ->step('0.01'),
             ]);
     }
 
