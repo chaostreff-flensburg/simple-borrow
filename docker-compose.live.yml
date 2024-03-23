@@ -33,6 +33,7 @@ services:
   schedule:
     image: ghcr.io/chaostreff-flensburg/simple-borrow:latest
     restart: always
+    tty: true
     volumes:
       - storage:/var/www/html/storage
     depends_on:

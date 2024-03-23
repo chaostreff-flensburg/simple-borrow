@@ -7,7 +7,9 @@
 
 <div class="card bg-base-100 shadow-xl mb-4">
     @if ($image)
-        <img class="object-cover rounded-l" loading="lazy" width="200" height="200" src="{{ asset('storage/' . $image) }}" alt="{{ $name }}">
+        <div class="flex justify-center">
+            <img class="object-cover rounded-l" loading="lazy" width="200" height="200" src="{{ asset('storage/' . $image) }}" alt="{{ $name }}">
+        </div>
     @endif
     <div class="card-body">
         <h2 class="card-title">{{ $name }}</h2>

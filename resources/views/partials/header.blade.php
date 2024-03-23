@@ -1,5 +1,5 @@
 <header>
-    <div class="navbar bg-base-100">
+    <div class="navbar bg-base-100 block md:flex">
         <div class="flex-1">
             <a href="{{ route('home') }}" class="btn btn-ghost text-xl">{{ config('app.name') }}</a>
         </div>
